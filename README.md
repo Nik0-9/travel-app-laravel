@@ -93,6 +93,8 @@ git branch -M main
 git remote add origin your_git_url 
 git push -u origin main
 
+CLONO PROGETTO
+
 # copio file .env.example e lo rinomino in .env
 
 composer install
