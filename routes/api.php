@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/trips', [TripController::class, 'index']);
-Route::post('/new-trips', [TripController::class, 'store']);
+Route::post('/new-trip', [TripController::class, 'store']);

@@ -10,7 +10,7 @@ class Trip extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['name', 'slug', 'start_date', 'end_date'];
     public static function generateSlug($name)
     {
         $slug = Str::slug($name, '-');
@@ -18,7 +18,7 @@ class Trip extends Model
     
         do {
             $newSlug = ($count > 1) ? "{$slug}-{$count}" : $slug;
-            $existingSlug = Trip::withTrashed()->where('slug', $newSlug)->exists();
+            $existingSlug = Trip::where('slug', $newSlug)->exists();
             $count++;
         } while ($existingSlug);
     

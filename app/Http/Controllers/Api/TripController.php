@@ -20,16 +20,25 @@ class TripController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:100',
-            'slug' => 'required|string|max:150',
-            'description' => 'nullable|string',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
         ]);
 
-        $slug = Trip::generateSlug($request->name);
-        $trip = Trip::create($request->all());
-        $trip->slug = $slug;
-        $trip->save();
-        return response()->json($trip, 201);
+        try {
+            \Log::info('Validation passed');
+    
+            $slug = Trip::generateSlug($request->name);
+            \Log::info('Generated Slug: ' . $slug);
+            $request->request->add(['slug' => $slug]);
+            $trip = Trip::create($request->all());
+            $trip->save();
+    
+            \Log::info('Trip Saved: ', $trip->toArray());
+    
+            return response()->json($trip, 201);
+        } catch (\Exception $e) {
+            \Log::error('Error creating trip: ' . $e->getMessage());
+            return response()->json(['error' => 'Server Error'], 500);
+        }
     }
 }
