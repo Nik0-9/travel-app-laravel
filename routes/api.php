@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TripController;
+use App\Http\Controllers\Api\DayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/trips', [TripController::class, 'index']);
 Route::post('/new-trip', [TripController::class, 'store']);
+Route::post('/trips/{tripId}/days', [DayController::class, 'store']);
+
+// Route::prefix('trips/{tripId}/days')->group(function () {
+//     Route::get('/', [DayController::class, 'index']);
+//     Route::post('/', [DayController::class, 'store']);
+// });

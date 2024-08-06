@@ -9,8 +9,7 @@ use App\Models\Trip;
 class TripController extends Controller
 {
     public function index(){
-        $trips = Trip::all();
-        dd('trips');
+        $trips = Trip::with('days')->get();
         return response()->json([
             'status' => 'success',
             'results' => $trips

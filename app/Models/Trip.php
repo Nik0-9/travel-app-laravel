@@ -24,4 +24,9 @@ class Trip extends Model
     
         return $newSlug;
     }
+
+    public function days()
+    {
+        return $this->hasMany(Day::class);
+    }
 }
