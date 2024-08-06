@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/trips', [TripController::class, 'index']);
 Route::post('/new-trip', [TripController::class, 'store']);
 Route::post('/trips/{tripId}/days', [DayController::class, 'store']);
+Route::get('/trips/{id}', [TripController::class, 'show']);
 
 // Route::prefix('trips/{tripId}/days')->group(function () {
 //     Route::get('/', [DayController::class, 'index']);
