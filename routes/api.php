@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TripController;
 use App\Http\Controllers\Api\DayController;
+use App\Http\Controllers\Api\StopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/trips', [TripController::class, 'index']);
 Route::post('/new-trip', [TripController::class, 'store']);
-Route::post('/trips/{tripId}/days', [DayController::class, 'store']);
 Route::get('/trips/{id}', [TripController::class, 'show']);
+Route::post('/trips/{tripId}/days', [DayController::class, 'store']);
+Route::get('/trips/{tripsId}/days/{day_id}', [DayController::class, 'show']);
+Route::get('/trips/{tripId}/days/{dayId}/stops', [StopController::class, 'index']);
+Route::post('/trips/{tripId}/days/{dayId}/stops', [StopController::class, 'store']);
 
 // Route::prefix('trips/{tripId}/days')->group(function () {
 //     Route::get('/', [DayController::class, 'index']);

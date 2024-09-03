@@ -45,4 +45,13 @@ class DayController extends Controller
         return response()->json($day, 201);
     }
 
+    public function show($tripId, $dayId)
+    {
+        $day = Day::where('trip_id', $tripId)->where('id', $dayId)->first();
+        if (!$day) {
+            return response()->json(['error' => 'Day not found'], 404);
+        }
+        return response()->json($day, 200);
+    }
+
 }
