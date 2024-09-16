@@ -47,4 +47,27 @@ class TripController extends Controller
             return response()->json(['error' => 'Server Error'], 500);
         }
     }
+    public function update(Request $request, $id)
+{
+    // Validare i dati in arrivo
+    $request->validate([
+        'end_date' => 'nullable|date|after_or_equal:start_date',
+    ]);
+
+    try {
+        // Trovare il viaggio per ID
+        $trip = Trip::findOrFail($id);
+
+        // Aggiornare solo la data di fine (oppure altri campi se necessario)
+        $trip->end_date = $request->input('end_date');
+        $trip->save();
+
+        // Restituire il viaggio aggiornato
+        return response()->json($trip, 200);
+    } catch (\Exception $e) {
+        // Gestire eventuali errori
+        \Log::error('Error updating trip: ' . $e->getMessage());
+        return response()->json(['error' => 'Server Error'], 500);
+    }
+}
 }
